@@ -151,6 +151,8 @@ function Button({ active, children, onClick }) {
         fontWeight: 700,
         boxShadow: active ? "0 4px 12px rgba(0,82,57,0.18)" : "none",
         maxWidth: "100%",
+        fontSize: "clamp(13px, 3.5vw, 15px)",
+        wordBreak: "break-word",
       }}
     >
       {children}
@@ -175,7 +177,7 @@ function StageTimeline({ stages, activeStage, t }) {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
           gap: 12,
         }}
       >
@@ -526,7 +528,7 @@ export default function App() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))",
               gap: 22,
             }}
           >
