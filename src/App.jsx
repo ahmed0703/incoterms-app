@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import "./App.css";
 
 const BRAND = {
   green: "#005239",
@@ -7,16 +8,11 @@ const BRAND = {
   panel: "#F1F5F9",
   seller: "#1D4ED8",
   buyer: "#16A34A",
-  sellerLight: "#93C5FD",
-  buyerLight: "#86EFAC",
   risk: "#EA580C",
   text: "#0F172A",
 };
 
-const LANGS = {
-  no: "Norsk",
-  en: "English",
-};
+const LANGS = { no: "Norsk", en: "English" };
 
 const UI = {
   no: {
@@ -44,7 +40,6 @@ const UI = {
     stageTitle: "Transportløp",
     damagePosition: "Skadepunkt",
     selectedTerm: "Valgt term",
-    comparedTerm: "Sammenlignet term",
   },
   en: {
     title: "Incoterms® 2020 – W.R. Berkley Insurance Nordic",
@@ -71,7 +66,6 @@ const UI = {
     stageTitle: "Transport journey",
     damagePosition: "Damage point",
     selectedTerm: "Selected term",
-    comparedTerm: "Compared term",
   },
 };
 
@@ -139,22 +133,7 @@ function stageToPercent(stageIndex) {
 
 function Button({ active, children, onClick }) {
   return (
-    <button
-      onClick={onClick}
-      style={{
-        padding: "10px 14px",
-        borderRadius: 12,
-        border: `1px solid ${active ? BRAND.green : BRAND.border}`,
-        background: active ? BRAND.green : "white",
-        color: active ? "white" : BRAND.text,
-        cursor: "pointer",
-        fontWeight: 700,
-        boxShadow: active ? "0 4px 12px rgba(0,82,57,0.18)" : "none",
-        maxWidth: "100%",
-        fontSize: "clamp(13px, 3.5vw, 15px)",
-        wordBreak: "break-word",
-      }}
-    >
+    <button className={`brand-button ${active ? "active" : ""}`} onClick={onClick}>
       {children}
     </button>
   );
@@ -162,8 +141,8 @@ function Button({ active, children, onClick }) {
 
 function Legend({ color, text }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 8, fontWeight: 700 }}>
-      <span style={{ width: 14, height: 14, borderRadius: 99, background: color }} />
+    <div className="legend-item">
+      <span className="legend-dot" style={{ background: color }} />
       <span>{text}</span>
     </div>
   );
@@ -171,57 +150,18 @@ function Legend({ color, text }) {
 
 function StageTimeline({ stages, activeStage, t }) {
   return (
-    <div style={{ marginTop: 24 }}>
-      <h3 style={{ color: BRAND.text, marginBottom: 16 }}>{t.stageTitle}</h3>
+    <div className="stage-wrapper">
+      <h3>{t.stageTitle}</h3>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
-          gap: 12,
-        }}
-      >
+      <div className="stage-grid">
         {stages.map((stage, index) => {
           const isActive = index === activeStage;
 
           return (
-            <div
-              key={stage.key}
-              style={{
-                border: `2px solid ${isActive ? BRAND.risk : BRAND.border}`,
-                background: isActive ? "#FFF7ED" : "white",
-                borderRadius: 16,
-                padding: 12,
-                minHeight: 105,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: 6,
-              }}
-            >
-              <div
-                style={{
-                  width: 28,
-                  height: 28,
-                  borderRadius: 99,
-                  background: isActive ? BRAND.risk : BRAND.panel,
-                  color: isActive ? "white" : BRAND.text,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontWeight: 800,
-                  fontSize: 13,
-                }}
-              >
-                {index + 1}
-              </div>
-
-              <div style={{ fontSize: 24 }}>{stage.icon}</div>
-
-              <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.text }}>
-                {stage.label}
-              </div>
+            <div key={stage.key} className={`stage-card ${isActive ? "active" : ""}`}>
+              <div className="stage-number">{index + 1}</div>
+              <div className="stage-icon">{stage.icon}</div>
+              <div className="stage-label">{stage.label}</div>
             </div>
           );
         })}
@@ -232,53 +172,19 @@ function StageTimeline({ stages, activeStage, t }) {
 
 function Bar({ title, split, marker }) {
   return (
-    <div style={{ marginBottom: 30 }}>
-      <strong style={{ color: BRAND.text, fontSize: 16 }}>{title}</strong>
+    <div className="bar-block">
+      <strong>{title}</strong>
 
-      <div style={{ position: "relative", height: 40, borderRadius: 99, overflow: "visible", marginTop: 10 }}>
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            borderRadius: 99,
-            overflow: "hidden",
-            display: "flex",
-            border: `1px solid ${BRAND.border}`,
-          }}
-        >
+      <div className="bar-track">
+        <div className="bar-fill">
           <div style={{ width: `${split}%`, background: BRAND.seller }} />
           <div style={{ width: `${100 - split}%`, background: BRAND.buyer }} />
         </div>
 
         {marker && (
           <>
-            <div
-              style={{
-                position: "absolute",
-                left: `${split}%`,
-                top: -9,
-                transform: "translateX(-50%)",
-                width: 7,
-                height: 56,
-                background: BRAND.risk,
-                borderRadius: 99,
-                zIndex: 5,
-              }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                left: `${split}%`,
-                top: -21,
-                transform: "translateX(-50%)",
-                width: 0,
-                height: 0,
-                borderLeft: "11px solid transparent",
-                borderRight: "11px solid transparent",
-                borderTop: `14px solid ${BRAND.risk}`,
-                zIndex: 6,
-              }}
-            />
+            <div className="risk-line" style={{ left: `${split}%` }} />
+            <div className="risk-triangle" style={{ left: `${split}%` }} />
           </>
         )}
       </div>
@@ -290,37 +196,10 @@ function Visual({ label, stageIndex, stages, t }) {
   const riskPct = stageToPercent(stageIndex);
 
   return (
-    <section
-      style={{
-        border: `1px solid ${BRAND.border}`,
-        borderRadius: 20,
-        padding: "clamp(16px, 3vw, 24px)",
-        background: "white",
-        boxShadow: "0 8px 20px rgba(15, 23, 42, 0.08)",
-        overflow: "hidden",
-      }}
-    >
-      <h2
-        style={{
-          color: BRAND.text,
-          marginTop: 0,
-          textAlign: "center",
-          fontSize: "clamp(22px, 4vw, 30px)",
-          lineHeight: 1.2,
-        }}
-      >
-        {label}
-      </h2>
+    <section className="visual-card">
+      <h2>{label}</h2>
 
-      <div
-        style={{
-          display: "flex",
-          gap: 18,
-          marginBottom: 26,
-          flexWrap: "wrap",
-          justifyContent: "center",
-        }}
-      >
+      <div className="legend-row">
         <Legend color={BRAND.seller} text={t.legendSeller} />
         <Legend color={BRAND.buyer} text={t.legendBuyer} />
         <Legend color={BRAND.risk} text={t.legendRisk} />
@@ -345,7 +224,6 @@ export default function App() {
 
   const t = UI[lang];
   const stages = STAGES[lang];
-
   const terms = useMemo(() => (tab === "all" ? ALL_11 : TERMS_SEA), [tab]);
 
   const selectedBase = useMemo(
@@ -372,58 +250,12 @@ export default function App() {
   const damageWho = damageAt <= riskPct ? t.seller : t.buyer;
 
   return (
-    <main
-      style={{
-        fontFamily: "Arial, sans-serif",
-        background: BRAND.panel,
-        minHeight: "100vh",
-        padding: "16px",
-        color: BRAND.text,
-        overflowX: "hidden",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1180,
-          margin: "0 auto",
-          textAlign: "center",
-          width: "100%",
-        }}
-      >
-        <h1
-          style={{
-            color: BRAND.green,
-            fontSize: "clamp(20px, 4vw, 30px)",
-            textAlign: "center",
-            marginBottom: 10,
-            fontWeight: 800,
-            lineHeight: 1.2,
-            padding: "0 10px",
-          }}
-        >
-          {t.title}
-        </h1>
+    <main className="app-shell">
+      <div className="app-container">
+        <h1>{t.title}</h1>
+        <p className="subtitle">{t.subtitle}</p>
 
-        <p
-          style={{
-            fontSize: "clamp(15px, 2.5vw, 18px)",
-            color: "#334155",
-            fontWeight: 600,
-            lineHeight: 1.4,
-          }}
-        >
-          {t.subtitle}
-        </p>
-
-        <div
-          style={{
-            display: "flex",
-            gap: 10,
-            flexWrap: "wrap",
-            justifyContent: "center",
-            marginBottom: 22,
-          }}
-        >
+        <div className="top-controls">
           {Object.keys(LANGS).map((key) => (
             <Button key={key} active={lang === key} onClick={() => setLang(key)}>
               {LANGS[key]}
@@ -457,19 +289,10 @@ export default function App() {
           </Button>
         </div>
 
-        <section
-          style={{
-            background: "white",
-            padding: "clamp(16px, 3vw, 22px)",
-            borderRadius: 18,
-            marginBottom: 22,
-            border: `1px solid ${BRAND.border}`,
-            boxShadow: "0 8px 20px rgba(15, 23, 42, 0.06)",
-          }}
-        >
-          <h3 style={{ marginTop: 0, color: BRAND.text }}>{t.pickTerm}</h3>
+        <section className="selector-card">
+          <h3>{t.pickTerm}</h3>
 
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+          <div className="button-row">
             {terms.map((term) => (
               <Button
                 key={term.code}
@@ -482,10 +305,10 @@ export default function App() {
           </div>
 
           {selectedCode === "FCA" && (
-            <div style={{ marginTop: 20 }}>
-              <h3 style={{ color: BRAND.text }}>{t.fcaVariantLabel}</h3>
+            <div className="sub-section">
+              <h3>{t.fcaVariantLabel}</h3>
 
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+              <div className="button-row">
                 <Button
                   active={fcaVariant === "sellerPremises"}
                   onClick={() => setFcaVariant("sellerPremises")}
@@ -504,10 +327,10 @@ export default function App() {
           )}
 
           {compare && (
-            <div style={{ marginTop: 20 }}>
-              <h3 style={{ color: BRAND.text }}>{t.compareWith}</h3>
+            <div className="sub-section">
+              <h3>{t.compareWith}</h3>
 
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+              <div className="button-row">
                 {terms.map((term) => (
                   <Button
                     key={term.code}
@@ -525,46 +348,20 @@ export default function App() {
         {!compare ? (
           <Visual label={`${t.selectedTerm}: ${selectedCode}`} stageIndex={selectedStage} stages={stages} t={t} />
         ) : (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))",
-              gap: 22,
-            }}
-          >
+          <div className="compare-grid">
             <Visual label={`A: ${selectedCode}`} stageIndex={selectedStage} stages={stages} t={t} />
             <Visual label={`B: ${compareCode}`} stageIndex={compareStage} stages={stages} t={t} />
           </div>
         )}
 
-        <section
-          style={{
-            background: "white",
-            padding: "clamp(16px, 3vw, 24px)",
-            borderRadius: 20,
-            marginTop: 22,
-            border: `1px solid ${BRAND.border}`,
-            boxShadow: "0 8px 20px rgba(15, 23, 42, 0.06)",
-          }}
-        >
-          <h2
-            style={{
-              marginTop: 0,
-              color: BRAND.text,
-              fontSize: "clamp(22px, 4vw, 28px)",
-              fontWeight: 800,
-              textAlign: "center",
-              lineHeight: 1.2,
-            }}
-          >
-            {t.claimsSimTitle}
-          </h2>
+        <section className="claims-card">
+          <h2>{t.claimsSimTitle}</h2>
 
-          <p style={{ fontSize: "clamp(16px, 2.5vw, 18px)", color: BRAND.text }}>
+          <p className="risk-party">
             {t.liableRisk} <strong>{damageWho}</strong>
           </p>
 
-          <p style={{ color: BRAND.slate, fontWeight: 700 }}>
+          <p className="damage-point">
             {t.damagePosition}: {damageAt}%
           </p>
 
@@ -574,13 +371,9 @@ export default function App() {
             max="100"
             value={damageAt}
             onChange={(e) => setDamageAt(Number(e.target.value))}
-            style={{
-              width: "100%",
-              accentColor: BRAND.risk,
-            }}
           />
 
-          <p style={{ color: "#334155", fontWeight: 600 }}>{t.claimsHint}</p>
+          <p className="claims-hint">{t.claimsHint}</p>
         </section>
       </div>
     </main>
