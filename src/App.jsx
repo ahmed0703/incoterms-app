@@ -150,6 +150,7 @@ function Button({ active, children, onClick }) {
         cursor: "pointer",
         fontWeight: 700,
         boxShadow: active ? "0 4px 12px rgba(0,82,57,0.18)" : "none",
+        maxWidth: "100%",
       }}
     >
       {children}
@@ -174,7 +175,7 @@ function StageTimeline({ stages, activeStage, t }) {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
           gap: 12,
         }}
       >
@@ -291,12 +292,21 @@ function Visual({ label, stageIndex, stages, t }) {
       style={{
         border: `1px solid ${BRAND.border}`,
         borderRadius: 20,
-        padding: 24,
+        padding: "clamp(16px, 3vw, 24px)",
         background: "white",
         boxShadow: "0 8px 20px rgba(15, 23, 42, 0.08)",
+        overflow: "hidden",
       }}
     >
-      <h2 style={{ color: BRAND.text, marginTop: 0, textAlign: "center", fontSize: 30 }}>
+      <h2
+        style={{
+          color: BRAND.text,
+          marginTop: 0,
+          textAlign: "center",
+          fontSize: "clamp(22px, 4vw, 30px)",
+          lineHeight: 1.2,
+        }}
+      >
         {label}
       </h2>
 
@@ -365,8 +375,9 @@ export default function App() {
         fontFamily: "Arial, sans-serif",
         background: BRAND.panel,
         minHeight: "100vh",
-        padding: 24,
+        padding: "16px",
         color: BRAND.text,
+        overflowX: "hidden",
       }}
     >
       <div
@@ -374,22 +385,31 @@ export default function App() {
           maxWidth: 1180,
           margin: "0 auto",
           textAlign: "center",
+          width: "100%",
         }}
       >
         <h1
           style={{
             color: BRAND.green,
-            fontSize: 30,
+            fontSize: "clamp(20px, 4vw, 30px)",
             textAlign: "center",
             marginBottom: 10,
             fontWeight: 800,
-            whiteSpace: "nowrap",
+            lineHeight: 1.2,
+            padding: "0 10px",
           }}
         >
           {t.title}
         </h1>
 
-        <p style={{ fontSize: 18, color: "#334155", fontWeight: 600 }}>
+        <p
+          style={{
+            fontSize: "clamp(15px, 2.5vw, 18px)",
+            color: "#334155",
+            fontWeight: 600,
+            lineHeight: 1.4,
+          }}
+        >
           {t.subtitle}
         </p>
 
@@ -438,7 +458,7 @@ export default function App() {
         <section
           style={{
             background: "white",
-            padding: 22,
+            padding: "clamp(16px, 3vw, 22px)",
             borderRadius: 18,
             marginBottom: 22,
             border: `1px solid ${BRAND.border}`,
@@ -506,7 +526,7 @@ export default function App() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
               gap: 22,
             }}
           >
@@ -518,7 +538,7 @@ export default function App() {
         <section
           style={{
             background: "white",
-            padding: 24,
+            padding: "clamp(16px, 3vw, 24px)",
             borderRadius: 20,
             marginTop: 22,
             border: `1px solid ${BRAND.border}`,
@@ -529,15 +549,16 @@ export default function App() {
             style={{
               marginTop: 0,
               color: BRAND.text,
-              fontSize: 28,
+              fontSize: "clamp(22px, 4vw, 28px)",
               fontWeight: 800,
               textAlign: "center",
+              lineHeight: 1.2,
             }}
           >
             {t.claimsSimTitle}
           </h2>
 
-          <p style={{ fontSize: 18, color: BRAND.text }}>
+          <p style={{ fontSize: "clamp(16px, 2.5vw, 18px)", color: BRAND.text }}>
             {t.liableRisk} <strong>{damageWho}</strong>
           </p>
 
