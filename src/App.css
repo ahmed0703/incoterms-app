@@ -107,7 +107,7 @@ body {
 
 .visual-card {
   padding: 24px;
-  overflow: hidden;
+  overflow-x: auto;
 }
 
 .visual-card h2 {
@@ -194,8 +194,9 @@ body {
 
 .stage-grid {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(8, minmax(110px, 1fr));
   gap: 12px;
+  width: 100%;
 }
 
 .stage-card {
@@ -203,10 +204,11 @@ body {
   background: white;
   border-radius: 16px;
   padding: 12px 8px;
-  min-height: 105px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  min-height: 120px;
+  height: 120px;
+  display: grid;
+  grid-template-rows: 28px 28px 1fr;
+  justify-items: center;
   align-items: center;
   gap: 6px;
 }
@@ -236,18 +238,29 @@ body {
 
 .stage-icon {
   font-size: 24px;
+  line-height: 1;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .stage-label {
   font-size: 13px;
   font-weight: 700;
   color: var(--text);
+  line-height: 1.2;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .compare-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 22px;
+  align-items: start;
 }
 
 .claims-card {
@@ -283,7 +296,6 @@ body {
   font-weight: 600;
 }
 
-/* Mobil */
 @media (max-width: 768px) {
   .app-shell {
     padding: 16px;
@@ -323,16 +335,16 @@ body {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .stage-card {
+    height: auto;
+    min-height: 105px;
+  }
+
   .compare-grid {
     grid-template-columns: 1fr;
   }
-
-  .stage-card {
-    min-height: 96px;
-  }
 }
 
-/* Små mobiler */
 @media (max-width: 390px) {
   .stage-grid {
     grid-template-columns: 1fr;
