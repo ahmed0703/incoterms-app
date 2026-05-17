@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import "./App.css";
 
 const BRAND = {
   green: "#005239",
