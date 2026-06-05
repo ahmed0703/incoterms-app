@@ -91,8 +91,8 @@ body {
 }
 
 .selector-card {
-  padding: 22px;
-  margin-bottom: 22px;
+  padding: 18px 22px;
+  margin-bottom: 18px;
 }
 
 .selector-card h3,
@@ -102,26 +102,26 @@ body {
 }
 
 .sub-section {
-  margin-top: 20px;
+  margin-top: 16px;
 }
 
 .visual-card {
-  padding: 24px;
+  padding: 22px;
   overflow: hidden;
 }
 
 .visual-card h2 {
   color: var(--text);
-  margin: 0 0 18px;
+  margin: 0 0 14px;
   text-align: center;
-  font-size: 30px;
+  font-size: 28px;
   line-height: 1.2;
 }
 
 .legend-row {
   display: flex;
   gap: 18px;
-  margin-bottom: 26px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -140,7 +140,7 @@ body {
 }
 
 .bar-block {
-  margin-bottom: 30px;
+  margin-bottom: 22px;
 }
 
 .bar-block strong {
@@ -150,7 +150,7 @@ body {
 
 .bar-track {
   position: relative;
-  height: 40px;
+  height: 38px;
   border-radius: 99px;
   overflow: visible;
   margin-top: 10px;
@@ -170,7 +170,7 @@ body {
   top: -9px;
   transform: translateX(-50%);
   width: 7px;
-  height: 56px;
+  height: 54px;
   background: var(--risk);
   border-radius: 99px;
   z-index: 5;
@@ -188,8 +188,53 @@ body {
   z-index: 6;
 }
 
+.info-grid,
+.glossary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 14px 0 18px;
+}
+
+.glossary-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-top: 14px;
+}
+
+.info-box {
+  border: 1px solid var(--border);
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 12px;
+  text-align: center;
+}
+
+.info-box h3 {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 16px;
+}
+
+.info-box p {
+  margin: 6px 0;
+  color: #334155;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.term-details {
+  margin: 14px 0 18px;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
 .stage-wrapper {
-  margin-top: 24px;
+  margin-top: 20px;
 }
 
 .stage-grid {
@@ -262,8 +307,6 @@ body {
   align-items: start;
 }
 
-/* KUN compare-mode får scroll på transportløpet */
-
 .compare-grid .stage-wrapper {
   overflow-x: auto;
   padding-bottom: 8px;
@@ -276,14 +319,14 @@ body {
 }
 
 .claims-card {
-  padding: 24px;
-  margin-top: 22px;
+  padding: 18px 24px;
+  margin-top: 18px;
 }
 
 .claims-card h2 {
   margin-top: 0;
   color: var(--text);
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 800;
   line-height: 1.2;
 }
@@ -291,11 +334,6 @@ body {
 .risk-party {
   font-size: 18px;
   color: var(--text);
-}
-
-.damage-point {
-  color: var(--slate);
-  font-weight: 700;
 }
 
 .claims-card input {
@@ -306,6 +344,30 @@ body {
 .claims-hint {
   color: #334155;
   font-weight: 600;
+}
+
+.transport-select {
+  width: min(420px, 100%);
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.compact-glossary {
+  margin-top: 16px;
+  padding: 16px;
+}
+
+@media (max-width: 1100px) {
+  .details-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 768px) {
@@ -343,6 +405,11 @@ body {
     font-size: 24px;
   }
 
+  .info-grid,
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
   .stage-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -361,4 +428,32 @@ body {
   .stage-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.term-details {
+  margin: 10px 0 14px;
+}
+
+.term-details > .brand-button,
+.compact-glossary > .brand-button {
+  background: transparent !important;
+  border: none !important;
+  color: var(--green) !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  padding: 4px 8px !important;
+  box-shadow: none !important;
+}
+
+.term-details > .brand-button:hover,
+.compact-glossary > .brand-button:hover {
+  text-decoration: underline;
+}
+
+.compact-glossary {
+  margin-top: 12px;
+  padding: 12px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
