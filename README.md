@@ -1,18 +1,12 @@
-# React + Vite
+# Incoterms® 2020 Interactive Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Developer
+Ahmed Amjad
 
-Currently, two official plugins are available:
+## Description
+Interactive visualization of Incoterms® 2020, including risk transfer, cost transfer, insurance responsibilities, customs clearance obligations, claims simulation and term comparison.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Original application concept, UX design, information architecture, implementation and source code created by Ahmed Amjad. Incoterms® is a registered trademark of the International Chamber of Commerce (ICC). This application is an independent educational visualization and is not affiliated with or endorsed by ICC.
 
-## React Compiler
-
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Copyright © 2026 Ahmed Amjad.  
+All rights reserved.

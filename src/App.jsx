@@ -1,3 +1,14 @@
+/*
+  Incoterms® 2020 Interactive Application
+  Developed by Ahmed Amjad
+
+  Copyright © 2026 Ahmed Amjad
+  All rights reserved.
+
+  Original concept, UX design, application logic,
+  information architecture and implementation by Ahmed Amjad.
+*/
+
 import { useMemo, useState } from "react";
 
 const BRAND = {

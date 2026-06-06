@@ -1,7 +1,9 @@
 {
   "name": "incoterms-app",
+  "version": "7.0.0",
+  "author": "Ahmed Amjad",
+  "license": "Proprietary",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
