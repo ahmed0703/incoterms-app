@@ -22,7 +22,7 @@ const LANGS = { no: "Norsk", en: "English" };
 
 const UI = {
   no: {
-    title: "Incoterms® 2020 – W.R. Berkley Insurance Nordic",
+    title: "Incoterms® 2020",
     subtitle: "Velg transportmåte, Incoterm og se kostnad, risiko, forsikring og klarering.",
     transportMode: "Transportmåte",
     allModes: "🌍 Alle Incoterms",
@@ -62,15 +62,13 @@ const UI = {
     glossaryTitle: "Ordliste",
     showGlossary: "Vis ordliste",
     hideGlossary: "Skjul ordliste",
-    showDetails: "Vis detaljer",
-    hideDetails: "Skjul detaljer",
     riskTransfer: "Risikoovergang",
     sellerObligation: "Selgers ansvar",
     buyerObligation: "Kjøpers ansvar",
     insuranceNote: "Forsikringsnotat",
   },
   en: {
-    title: "Incoterms® 2020 – W.R. Berkley Insurance Nordic",
+    title: "Incoterms® 2020",
     subtitle: "Select transport mode, Incoterm and view cost, risk, insurance and clearance.",
     transportMode: "Transport mode",
     allModes: "🌍 All Incoterms",
@@ -110,8 +108,6 @@ const UI = {
     glossaryTitle: "Glossary",
     showGlossary: "Show glossary",
     hideGlossary: "Hide glossary",
-    showDetails: "Show details",
-    hideDetails: "Hide details",
     riskTransfer: "Risk transfer",
     sellerObligation: "Seller’s obligation",
     buyerObligation: "Buyer’s obligation",
@@ -121,24 +117,24 @@ const UI = {
 
 const STAGES = {
   no: [
-    { key: "factory", label: "Selgers sted", icon: "🏭" },
-    { key: "pre", label: "Henting / fortransport", icon: "🚚" },
-    { key: "export", label: "Avgangshavn", icon: "⚓" },
-    { key: "main", label: "Hovedtransport", icon: "🚢" },
-    { key: "import", label: "Ankomsthavn", icon: "📍" },
-    { key: "on", label: "Videre transport", icon: "🚚" },
-    { key: "delivered", label: "Ankomststed", icon: "📦" },
-    { key: "unloaded", label: "Losset", icon: "✅" },
+    { key: "factory", label: "Selgers sted", icon: "factory" },
+    { key: "pre", label: "Fortransport", icon: "truck" },
+    { key: "export", label: "Avgangshavn", icon: "anchor" },
+    { key: "main", label: "Hovedtransport", icon: "ship" },
+    { key: "import", label: "Ankomsthavn", icon: "port" },
+    { key: "on", label: "Videre transport", icon: "truck" },
+    { key: "delivered", label: "Ankomststed", icon: "mapPin" },
+    { key: "unloaded", label: "Losset", icon: "check" },
   ],
   en: [
-    { key: "factory", label: "Seller’s place", icon: "🏭" },
-    { key: "pre", label: "Pickup / pre-carriage", icon: "🚚" },
-    { key: "export", label: "Port of departure", icon: "⚓" },
-    { key: "main", label: "Main carriage", icon: "🚢" },
-    { key: "import", label: "Port of arrival", icon: "📍" },
-    { key: "on", label: "On-carriage", icon: "🚚" },
-    { key: "delivered", label: "Place of destination", icon: "📦" },
-    { key: "unloaded", label: "Unloaded", icon: "✅" },
+    { key: "factory", label: "Seller’s place", icon: "factory" },
+    { key: "pre", label: "Pre-carriage", icon: "truck" },
+    { key: "export", label: "Port of departure", icon: "anchor" },
+    { key: "main", label: "Main carriage", icon: "ship" },
+    { key: "import", label: "Port of arrival", icon: "port" },
+    { key: "on", label: "On-carriage", icon: "truck" },
+    { key: "delivered", label: "Destination", icon: "mapPin" },
+    { key: "unloaded", label: "Unloaded", icon: "check" },
   ],
 };
 
@@ -148,113 +144,17 @@ const DP = {
 };
 
 const TERMS = [
-  {
-    code: "EXW",
-    name: "Ex Works",
-    risk: 0,
-    cost: 0,
-    exportBy: "buyer",
-    importBy: "buyer",
-    insuranceRecommended: "buyer",
-  },
-  {
-    code: "FCA",
-    name: "Free Carrier",
-    risk: 1,
-    cost: 1,
-    exportBy: "seller",
-    importBy: "buyer",
-    insuranceRecommended: "buyer",
-  },
-  {
-    code: "CPT",
-    name: "Carriage Paid To",
-    risk: 1,
-    cost: 6,
-    exportBy: "seller",
-    importBy: "buyer",
-    insuranceRecommended: "buyer",
-  },
-  {
-    code: "CIP",
-    name: "Carriage and Insurance Paid To",
-    risk: 1,
-    cost: 6,
-    exportBy: "seller",
-    importBy: "buyer",
-    insuranceBy: "seller",
-    insuranceFor: "buyer",
-    insuranceRecommended: "seller",
-  },
-  {
-    code: "DAP",
-    name: "Delivered At Place",
-    risk: 6,
-    cost: 6,
-    exportBy: "seller",
-    importBy: "buyer",
-    insuranceRecommended: "seller",
-  },
-  {
-    code: "DPU",
-    name: "Delivered at Place Unloaded",
-    risk: 7,
-    cost: 7,
-    exportBy: "seller",
-    importBy: "buyer",
-    insuranceRecommended: "seller",
-  },
-  {
-    code: "DDP",
-    name: "Delivered Duty Paid",
-    risk: 6,
-    cost: 6,
-    exportBy: "seller",
-    importBy: "seller",
-    insuranceRecommended: "seller",
-  },
-  {
-    code: "FAS",
-    name: "Free Alongside Ship",
-    risk: 2,
-    cost: 2,
-    exportBy: "seller",
-    importBy: "buyer",
-    insuranceRecommended: "buyer",
-    seaOnly: true,
-  },
-  {
-    code: "FOB",
-    name: "Free On Board",
-    risk: 3,
-    cost: 3,
-    exportBy: "seller",
-    importBy: "buyer",
-    insuranceRecommended: "buyer",
-    seaOnly: true,
-  },
-  {
-    code: "CFR",
-    name: "Cost and Freight",
-    risk: 3,
-    cost: 4,
-    exportBy: "seller",
-    importBy: "buyer",
-    insuranceRecommended: "buyer",
-    seaOnly: true,
-  },
-  {
-    code: "CIF",
-    name: "Cost, Insurance and Freight",
-    risk: 3,
-    cost: 4,
-    exportBy: "seller",
-    importBy: "buyer",
-    insuranceBy: "seller",
-    insuranceFor: "buyer",
-    insuranceRecommended: "seller",
-    seaOnly: true,
-  },
+  { code: "EXW", name: "Ex Works", risk: 0, cost: 0, exportBy: "buyer", importBy: "buyer", insuranceRecommended: "buyer" },
+  { code: "FCA", name: "Free Carrier", risk: 1, cost: 1, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer" },
+  { code: "CPT", name: "Carriage Paid To", risk: 1, cost: 6, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer" },
+  { code: "CIP", name: "Carriage and Insurance Paid To", risk: 1, cost: 6, exportBy: "seller", importBy: "buyer", insuranceBy: "seller", insuranceFor: "buyer", insuranceRecommended: "seller" },
+  { code: "DAP", name: "Delivered At Place", risk: 6, cost: 6, exportBy: "seller", importBy: "buyer", insuranceRecommended: "seller" },
+  { code: "DPU", name: "Delivered at Place Unloaded", risk: 7, cost: 7, exportBy: "seller", importBy: "buyer", insuranceRecommended: "seller" },
+  { code: "DDP", name: "Delivered Duty Paid", risk: 6, cost: 6, exportBy: "seller", importBy: "seller", insuranceRecommended: "seller" },
+  { code: "FAS", name: "Free Alongside Ship", risk: 2, cost: 2, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer", seaOnly: true },
+  { code: "FOB", name: "Free On Board", risk: 3, cost: 3, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer", seaOnly: true },
+  { code: "CFR", name: "Cost and Freight", risk: 3, cost: 4, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer", seaOnly: true },
+  { code: "CIF", name: "Cost, Insurance and Freight", risk: 3, cost: 4, exportBy: "seller", importBy: "buyer", insuranceBy: "seller", insuranceFor: "buyer", insuranceRecommended: "seller", seaOnly: true },
 ];
 
 const TERM_DETAILS = {
@@ -431,11 +331,7 @@ function partyName(party, t) {
 }
 
 function Button({ active, children, onClick }) {
-  return (
-    <button className={`brand-button ${active ? "active" : ""}`} onClick={onClick}>
-      {children}
-    </button>
-  );
+  return <button className={`brand-button ${active ? "active" : ""}`} onClick={onClick}>{children}</button>;
 }
 
 function Legend({ color, text }) {
@@ -450,7 +346,7 @@ function Legend({ color, text }) {
 function Bar({ title, split, markerColor }) {
   return (
     <div className="bar-block">
-      <strong>{title}</strong>
+      {title && <strong>{title}</strong>}
       <div className="bar-track">
         <div className="bar-fill">
           <div style={{ width: `${split}%`, background: BRAND.seller }} />
@@ -463,18 +359,130 @@ function Bar({ title, split, markerColor }) {
   );
 }
 
-function StageTimeline({ stages, activeStage, t }) {
+function SvgIcon({ name, size = 44 }) {
+  const common = {
+    width: size,
+    height: size,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.8,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": "true",
+    focusable: "false",
+  };
+
+  const icons = {
+    factory: (
+      <>
+        <path d="M3 21h18" />
+        <path d="M5 21V9.5l5 2.7V9.5l5 2.7V6h4v15" />
+        <path d="M8 17h2" />
+        <path d="M13 17h2" />
+        <path d="M8 14h2" />
+        <path d="M13 14h2" />
+      </>
+    ),
+    truck: (
+      <>
+        <path d="M3 7.5h11v8.5H3z" />
+        <path d="M14 10h4l3 3.5V16h-7z" />
+        <path d="M5.5 18.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+        <path d="M17.5 18.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+        <path d="M7.5 16h8" />
+      </>
+    ),
+    anchor: (
+      <>
+        <circle cx="12" cy="5" r="2" />
+        <path d="M12 7v12" />
+        <path d="M7 10h10" />
+        <path d="M5 16c1.6 3.2 4 5 7 5s5.4-1.8 7-5" />
+        <path d="M5 16l2.5-.8" />
+        <path d="M19 16l-2.5-.8" />
+      </>
+    ),
+    ship: (
+      <>
+        <path d="M4 15.5h16l-2 4H6z" />
+        <path d="M7 15.5l1.5-6h7l1.5 6" />
+        <path d="M9.5 9.5V5h5v4.5" />
+        <path d="M3 21c1.5 0 1.5-1 3-1s1.5 1 3 1 1.5-1 3-1 1.5 1 3 1 1.5-1 3-1 1.5 1 3 1" />
+      </>
+    ),
+    port: (
+      <>
+        <path d="M4 20h16" />
+        <path d="M6 20V10h12v10" />
+        <path d="M8 10l4-5 4 5" />
+        <path d="M12 5v15" />
+        <path d="M8.5 14h2" />
+        <path d="M13.5 14h2" />
+        <path d="M8.5 17h2" />
+        <path d="M13.5 17h2" />
+      </>
+    ),
+    mapPin: (
+      <>
+        <path d="M12 21s7-5.1 7-11a7 7 0 0 0-14 0c0 5.9 7 11 7 11z" />
+        <circle cx="12" cy="10" r="2.5" />
+      </>
+    ),
+    check: (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M8 12.5l2.6 2.6L16.5 9" />
+      </>
+    ),
+    rail: (
+      <>
+        <path d="M7 3h10a2 2 0 0 1 2 2v9a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V5a2 2 0 0 1 2-2z" />
+        <path d="M7 8h10" />
+        <path d="M8 21l2-3" />
+        <path d="M16 18l2 3" />
+        <circle cx="9" cy="14" r="1.2" />
+        <circle cx="15" cy="14" r="1.2" />
+      </>
+    ),
+    plane: (
+      <>
+        <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 20.5 3s-3-.5-4.5 1L12.5 7.5 4.3 5.7a1 1 0 0 0-.9.3l-.7.7a1 1 0 0 0 .1 1.6L8 12l-2 3H3l-1 1 4 2 2 4 1-1v-3l3-2 3.7 5.2a1 1 0 0 0 1.6.1l.7-.7a1 1 0 0 0 .3-.9z" />
+      </>
+    ),
+  };
+
+  return <svg {...common}>{icons[name]}</svg>;
+}
+function TransportIcons({ term }) {
+  const icons = term.seaOnly ? ["ship"] : ["truck", "rail", "plane"];
+
+  return (
+    <>
+      {icons.map((icon) => (
+        <SvgIcon key={icon} name={icon} size={32} />
+      ))}
+    </>
+  );
+}
+
+function StageTimeline({ stages, activeStage }) {
   return (
     <div className="stage-wrapper">
-      <h3>{t.stageTitle}</h3>
-      <div className="stage-grid">
-        {stages.map((stage, index) => (
-          <div key={stage.key} className={`stage-card ${index === activeStage ? "active" : ""}`}>
-            <div className="stage-number">{index + 1}</div>
-            <div className="stage-icon">{stage.icon}</div>
-            <div className="stage-label">{stage.label}</div>
-          </div>
-        ))}
+      <div className="stage-track">
+        <div className="stage-main-line" aria-hidden="true" />
+
+        <div className="stage-grid">
+          {stages.map((stage, index) => (
+            <div key={stage.key} className={`stage-card ${index === activeStage ? "active" : ""}`}>
+              <div className="stage-number">{index + 1}</div>
+              <div className="stage-icon">
+                <SvgIcon name={stage.icon} />
+              </div>
+              <div className="stage-label">{stage.label}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -487,21 +495,14 @@ function InfoPanel({ term, t }) {
     <div className="info-grid">
       <div className="info-box">
         <h3>{t.insurance}</h3>
-
         {hasMandatoryInsurance ? (
           <>
-            <p>
-              {t.insuranceBy}: <strong>{partyName(term.insuranceBy, t)}</strong>
-            </p>
-            <p>
-              {t.insuranceFor}: <strong>{partyName(term.insuranceFor, t)}</strong>
-            </p>
+            <p>{t.insuranceBy}: <strong>{partyName(term.insuranceBy, t)}</strong></p>
+            <p>{t.insuranceFor}: <strong>{partyName(term.insuranceFor, t)}</strong></p>
           </>
         ) : (
           <>
-            <p>
-              {t.shouldBeInsuredBy}: <strong>{partyName(term.insuranceRecommended, t)}</strong>
-            </p>
+            <p>{t.shouldBeInsuredBy}: <strong>{partyName(term.insuranceRecommended, t)}</strong></p>
             <p>{t.noMandatoryInsurance}</p>
           </>
         )}
@@ -509,52 +510,39 @@ function InfoPanel({ term, t }) {
 
       <div className="info-box">
         <h3>{t.customs}</h3>
-        <p>
-          {t.exportClearance}: <strong>{partyName(term.exportBy, t)}</strong>
-        </p>
-        <p>
-          {t.importClearance}: <strong>{partyName(term.importBy, t)}</strong>
-        </p>
+        <p>{t.exportClearance}: <strong>{partyName(term.exportBy, t)}</strong></p>
+        <p>{t.importClearance}: <strong>{partyName(term.importBy, t)}</strong></p>
       </div>
     </div>
   );
 }
 
 function TermDetails({ term, lang, t }) {
-  const [open, setOpen] = useState(false);
   const details = TERM_DETAILS[term.code]?.[lang];
 
   if (!details) return null;
 
   return (
-    <div className="term-details">
-      <button className="brand-button" onClick={() => setOpen((v) => !v)}>
-        {open ? "▲ " + t.hideDetails : "▼ " + t.showDetails}
-      </button>
+    <div className="details-grid always-visible-details">
+      <div className="info-box">
+        <h3>{t.riskTransfer}</h3>
+        <p>{details.riskTransfer}</p>
+      </div>
 
-      {open && (
-        <div className="details-grid">
-          <div className="info-box">
-            <h3>{t.riskTransfer}</h3>
-            <p>{details.riskTransfer}</p>
-          </div>
+      <div className="info-box">
+        <h3>{t.sellerObligation}</h3>
+        <p>{details.sellerObligation}</p>
+      </div>
 
-          <div className="info-box">
-            <h3>{t.sellerObligation}</h3>
-            <p>{details.sellerObligation}</p>
-          </div>
+      <div className="info-box">
+        <h3>{t.buyerObligation}</h3>
+        <p>{details.buyerObligation}</p>
+      </div>
 
-          <div className="info-box">
-            <h3>{t.buyerObligation}</h3>
-            <p>{details.buyerObligation}</p>
-          </div>
-
-          <div className="info-box">
-            <h3>{t.insuranceNote}</h3>
-            <p>{details.insuranceNote}</p>
-          </div>
-        </div>
-      )}
+      <div className="info-box">
+        <h3>{t.insuranceNote}</h3>
+        <p>{details.insuranceNote}</p>
+      </div>
     </div>
   );
 }
@@ -562,7 +550,10 @@ function TermDetails({ term, lang, t }) {
 function Visual({ label, term, stages, t, lang }) {
   return (
     <section className="visual-card">
-      <h2>{label}</h2>
+      <h2>
+        {label}
+        <span className="transport-icons"><TransportIcons term={term} /></span>
+      </h2>
 
       <div className="legend-row">
         <Legend color={BRAND.seller} text={t.legendSeller} />
@@ -572,13 +563,18 @@ function Visual({ label, term, stages, t, lang }) {
       </div>
 
       <Bar title={t.cost} split={pct(term.cost)} markerColor={BRAND.cost} />
-      <Bar title={t.risk} split={pct(term.risk)} markerColor={BRAND.risk} />
+
+      <StageTimeline stages={stages} activeStage={term.risk} />
+
+      <Bar title="" split={pct(term.risk)} markerColor={BRAND.risk} />
+
+      <div className="risk-label-bottom">
+        <strong>{t.risk}</strong>
+      </div>
 
       <InfoPanel term={term} t={t} />
 
       <TermDetails term={term} lang={lang} t={t} />
-
-      <StageTimeline stages={stages} activeStage={term.risk} t={t} />
     </section>
   );
 }
@@ -666,37 +662,49 @@ export default function App() {
 
   return (
     <main className="app-shell">
-      <div className="app-container">
-        <h1>{t.title}</h1>
-        <p className="subtitle">{t.subtitle}</p>
+      <header className="app-header">
+        <div className="header-logo">
+          <img src="/berkley-logo.png" alt="Berkley Nordic" className="berkley-logo" />
+        </div>
 
-        <div className="top-controls">
+        <div className="header-title">
+          <h1>{t.title}</h1>
+        </div>
+
+        <div className="language-controls header-language">
           {Object.keys(LANGS).map((key) => (
             <Button key={key} active={lang === key} onClick={() => setLang(key)}>
               {LANGS[key]}
             </Button>
           ))}
+        </div>
+      </header>
 
-          <Button active={compare} onClick={() => setCompare((v) => !v)}>
-            {compare ? t.compareOn : t.compareOff}
-          </Button>
+      <div className="app-container">
+        <p className="subtitle">{t.subtitle}</p>
+
+        <div className="top-controls">
+          <div className="primary-controls">
+            <select
+              className="transport-select"
+              value={transportMode}
+              onChange={(e) => changeTransportMode(e.target.value)}
+              aria-label={t.transportMode}
+            >
+              <option value="all">{t.allModes}</option>
+              <option value="road">{t.road}</option>
+              <option value="rail">{t.rail}</option>
+              <option value="air">{t.air}</option>
+              <option value="sea">{t.sea}</option>
+            </select>
+
+            <Button active={compare} onClick={() => setCompare((v) => !v)}>
+              {compare ? t.compareOn : t.compareOff}
+            </Button>
+          </div>
         </div>
 
         <section className="selector-card">
-          <h3>{t.transportMode}</h3>
-
-          <select
-            className="transport-select"
-            value={transportMode}
-            onChange={(e) => changeTransportMode(e.target.value)}
-          >
-            <option value="all">{t.allModes}</option>
-            <option value="road">{t.road}</option>
-            <option value="rail">{t.rail}</option>
-            <option value="air">{t.air}</option>
-            <option value="sea">{t.sea}</option>
-          </select>
-
           {transportMode === "sea" && <p className="claims-hint">{t.seaHint}</p>}
 
           <h3>{t.pickTerm}</h3>
@@ -738,45 +746,21 @@ export default function App() {
         </section>
 
         {!compare ? (
-          <Visual
-            label={`${selectedCode} – ${resolvedSelectedTerm.name}`}
-            term={resolvedSelectedTerm}
-            stages={stages}
-            t={t}
-            lang={lang}
-          />
+          <Visual label={`${selectedCode} – ${resolvedSelectedTerm.name}`} term={resolvedSelectedTerm} stages={stages} t={t} lang={lang} />
         ) : (
           <div className="compare-grid">
-            <Visual
-              label={`A: ${selectedCode} – ${resolvedSelectedTerm.name}`}
-              term={resolvedSelectedTerm}
-              stages={stages}
-              t={t}
-              lang={lang}
-            />
-            <Visual
-              label={`B: ${compareCode} – ${compareTerm.name}`}
-              term={compareTerm}
-              stages={stages}
-              t={t}
-              lang={lang}
-            />
+            <Visual label={`A: ${selectedCode} – ${resolvedSelectedTerm.name}`} term={resolvedSelectedTerm} stages={stages} t={t} lang={lang} />
+            <Visual label={`B: ${compareCode} – ${compareTerm.name}`} term={compareTerm} stages={stages} t={t} lang={lang} />
           </div>
         )}
 
-        <section className="claims-card">
+        <section className={`claims-card ${riskText === t.sellerRisk ? "seller-claim" : "buyer-claim"}`}>
           <h2>{t.claimsSimTitle}</h2>
           <p className="risk-party">
             <strong>{riskText}</strong>
           </p>
 
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={damageAt}
-            onChange={(e) => setDamageAt(Number(e.target.value))}
-          />
+          <input type="range" min="0" max="100" value={damageAt} onChange={(e) => setDamageAt(Number(e.target.value))} />
 
           <p className="claims-hint">{t.claimsHint}</p>
         </section>
