@@ -144,17 +144,17 @@ const DP = {
 };
 
 const TERMS = [
-  { code: "EXW", name: "Ex Works", risk: 0, cost: 0, exportBy: "buyer", importBy: "buyer", insuranceRecommended: "buyer" },
-  { code: "FCA", name: "Free Carrier", risk: 1, cost: 1, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer" },
-  { code: "CPT", name: "Carriage Paid To", risk: 1, cost: 6, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer" },
-  { code: "CIP", name: "Carriage and Insurance Paid To", risk: 1, cost: 6, exportBy: "seller", importBy: "buyer", insuranceBy: "seller", insuranceFor: "buyer", insuranceRecommended: "seller" },
-  { code: "DAP", name: "Delivered At Place", risk: 6, cost: 6, exportBy: "seller", importBy: "buyer", insuranceRecommended: "seller" },
-  { code: "DPU", name: "Delivered at Place Unloaded", risk: 7, cost: 7, exportBy: "seller", importBy: "buyer", insuranceRecommended: "seller" },
-  { code: "DDP", name: "Delivered Duty Paid", risk: 6, cost: 6, exportBy: "seller", importBy: "seller", insuranceRecommended: "seller" },
-  { code: "FAS", name: "Free Alongside Ship", risk: 2, cost: 2, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer", seaOnly: true },
-  { code: "FOB", name: "Free On Board", risk: 3, cost: 3, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer", seaOnly: true },
-  { code: "CFR", name: "Cost and Freight", risk: 3, cost: 4, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer", seaOnly: true },
-  { code: "CIF", name: "Cost, Insurance and Freight", risk: 3, cost: 4, exportBy: "seller", importBy: "buyer", insuranceBy: "seller", insuranceFor: "buyer", insuranceRecommended: "seller", seaOnly: true },
+  { code: "EXW", name: "Ex Works", displayName: "EXW (Ex Works – Named Place)", risk: 0, cost: 0, exportBy: "buyer", importBy: "buyer", insuranceRecommended: "buyer" },
+  { code: "FCA", name: "Free Carrier", displayName: "FCA (Free Carrier – Named Place)", risk: 1, cost: 1, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer" },
+  { code: "CPT", name: "Carriage Paid To", displayName: "CPT (Carriage Paid To – Named Place of Destination)", risk: 1, cost: 6, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer" },
+  { code: "CIP", name: "Carriage and Insurance Paid To", displayName: "CIP (Carriage and Insurance Paid To – Named Place of Destination)", risk: 1, cost: 6, exportBy: "seller", importBy: "buyer", insuranceBy: "seller", insuranceFor: "buyer", insuranceRecommended: "seller" },
+  { code: "DAP", name: "Delivered At Place", displayName: "DAP (Delivered At Place – Named Place of Destination)", risk: 6, cost: 6, exportBy: "seller", importBy: "buyer", insuranceRecommended: "seller" },
+  { code: "DPU", name: "Delivered at Place Unloaded", displayName: "DPU (Delivered at Place Unloaded – Named Place of Destination)", risk: 7, cost: 7, exportBy: "seller", importBy: "buyer", insuranceRecommended: "seller" },
+  { code: "DDP", name: "Delivered Duty Paid", displayName: "DDP (Delivered Duty Paid – Named Place of Destination)", risk: 6, cost: 6, exportBy: "seller", importBy: "seller", insuranceRecommended: "seller" },
+  { code: "FAS", name: "Free Alongside Ship", displayName: "FAS (Free Alongside Ship – Named Port of Shipment)", risk: 2, cost: 2, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer", seaOnly: true },
+  { code: "FOB", name: "Free On Board", displayName: "FOB (Free On Board – Named Port of Shipment)", risk: 3, cost: 3, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer", seaOnly: true },
+  { code: "CFR", name: "Cost and Freight", displayName: "CFR (Cost and Freight – Named Port of Destination)", risk: 3, cost: 4, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer", seaOnly: true },
+  { code: "CIF", name: "Cost, Insurance and Freight", displayName: "CIF (Cost, Insurance and Freight – Named Port of Destination)", risk: 3, cost: 4, exportBy: "seller", importBy: "buyer", insuranceBy: "seller", insuranceFor: "buyer", insuranceRecommended: "seller", seaOnly: true },
 ];
 
 const TERM_DETAILS = {
@@ -746,11 +746,11 @@ export default function App() {
         </section>
 
         {!compare ? (
-          <Visual label={`${selectedCode} – ${resolvedSelectedTerm.name}`} term={resolvedSelectedTerm} stages={stages} t={t} lang={lang} />
+          <Visual label={resolvedSelectedTerm.displayName} term={resolvedSelectedTerm} stages={stages} t={t} lang={lang} />
         ) : (
           <div className="compare-grid">
-            <Visual label={`A: ${selectedCode} – ${resolvedSelectedTerm.name}`} term={resolvedSelectedTerm} stages={stages} t={t} lang={lang} />
-            <Visual label={`B: ${compareCode} – ${compareTerm.name}`} term={compareTerm} stages={stages} t={t} lang={lang} />
+            <Visual label={`A: ${resolvedSelectedTerm.displayName}`} term={resolvedSelectedTerm} stages={stages} t={t} lang={lang} />
+            <Visual label={`B: ${compareTerm.displayName}`} term={compareTerm} stages={stages} t={t} lang={lang} />
           </div>
         )}
 
