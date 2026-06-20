@@ -356,7 +356,7 @@ body {
 
 .stage-grid {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   gap: 0;
   align-items: start;
   position: relative;
@@ -456,7 +456,7 @@ body {
 }
 
 .compare-grid .stage-grid {
-  grid-template-columns: repeat(8, 92px);
+  grid-template-columns: repeat(7, 104px);
   width: max-content;
   min-width: 100%;
 }

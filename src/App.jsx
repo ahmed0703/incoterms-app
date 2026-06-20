@@ -23,7 +23,7 @@ const LANGS = { no: "Norsk", en: "English" };
 const UI = {
   no: {
     title: "Incoterms® 2020",
-    subtitle: "Velg transportmåte, Incoterm og se kostnad, risiko, forsikring og klarering.",
+    subtitle: "Velg transportmåte, Incoterm og se kostnad, risiko, forsikring og tollklarering.",
     transportMode: "Transportmåte",
     allModes: "🌍 Alle Incoterms",
     road: "🚚 Bil / lastebil",
@@ -38,7 +38,7 @@ const UI = {
     cost: "Kostnad",
     risk: "Risiko",
     insurance: "Forsikring",
-    customs: "Klarering",
+    customs: "Tollklarering",
     seller: "Selger",
     buyer: "Kjøper",
     legendSeller: "Selger",
@@ -48,7 +48,7 @@ const UI = {
     insuranceBy: "Tegnes av",
     insuranceFor: "Forsikringen gjelder",
     shouldBeInsuredBy: "Bør forsikres av",
-    noMandatoryInsurance: "Ingen obligatorisk forsikring etter Incoterms.",
+    noMandatoryInsurance: "Ingen obligatorisk forsikring ifølge Incoterms.",
     exportClearance: "Eksportklarering",
     importClearance: "Importklarering",
     claimsSimTitle: "Claims-simulator: «Skade skjer her»",
@@ -69,7 +69,7 @@ const UI = {
   },
   en: {
     title: "Incoterms® 2020",
-    subtitle: "Select transport mode, Incoterm and view cost, risk, insurance and clearance.",
+    subtitle: "Select transport mode, Incoterm and view cost, risk, insurance and customs clearance.",
     transportMode: "Transport mode",
     allModes: "🌍 All Incoterms",
     road: "🚚 Road / truck",
@@ -84,7 +84,7 @@ const UI = {
     cost: "Cost",
     risk: "Risk",
     insurance: "Insurance",
-    customs: "Clearance",
+    customs: "Customs clearance",
     seller: "Seller",
     buyer: "Buyer",
     legendSeller: "Seller",
@@ -94,7 +94,7 @@ const UI = {
     insuranceBy: "Arranged by",
     insuranceFor: "Insured interest",
     shouldBeInsuredBy: "Should be insured by",
-    noMandatoryInsurance: "No mandatory insurance under Incoterms.",
+    noMandatoryInsurance: "No mandatory insurance according to Incoterms.",
     exportClearance: "Export clearance",
     importClearance: "Import clearance",
     claimsSimTitle: "Claims simulator: “Damage happens here”",
@@ -120,7 +120,6 @@ const STAGES = {
     { key: "factory", label: "Selgers sted", icon: "factory" },
     { key: "pre", label: "Fortransport", icon: "truck" },
     { key: "export", label: "Avgangshavn", icon: "anchor" },
-    { key: "main", label: "Hovedtransport", icon: "ship" },
     { key: "import", label: "Ankomsthavn", icon: "port" },
     { key: "on", label: "Videre transport", icon: "truck" },
     { key: "delivered", label: "Ankomststed", icon: "mapPin" },
@@ -130,7 +129,6 @@ const STAGES = {
     { key: "factory", label: "Seller’s place", icon: "factory" },
     { key: "pre", label: "Pre-carriage", icon: "truck" },
     { key: "export", label: "Port of departure", icon: "anchor" },
-    { key: "main", label: "Main carriage", icon: "ship" },
     { key: "import", label: "Port of arrival", icon: "port" },
     { key: "on", label: "On-carriage", icon: "truck" },
     { key: "delivered", label: "Destination", icon: "mapPin" },
@@ -139,22 +137,27 @@ const STAGES = {
 };
 
 const DP = {
+  SELLER_PLACE: 0,
   FIRST_CARRIER: 1,
   DEPARTURE_PORT: 2,
+  ARRIVAL_PORT: 3,
+  ON_CARRIAGE: 4,
+  DESTINATION: 5,
+  UNLOADED: 6,
 };
 
 const TERMS = [
-  { code: "EXW", name: "Ex Works", displayName: "EXW (Ex Works – Named Place)", risk: 0, cost: 0, exportBy: "buyer", importBy: "buyer", insuranceRecommended: "buyer" },
-  { code: "FCA", name: "Free Carrier", displayName: "FCA (Free Carrier – Named Place)", risk: 1, cost: 1, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer" },
-  { code: "CPT", name: "Carriage Paid To", displayName: "CPT (Carriage Paid To – Named Place of Destination)", risk: 1, cost: 6, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer" },
-  { code: "CIP", name: "Carriage and Insurance Paid To", displayName: "CIP (Carriage and Insurance Paid To – Named Place of Destination)", risk: 1, cost: 6, exportBy: "seller", importBy: "buyer", insuranceBy: "seller", insuranceFor: "buyer", insuranceRecommended: "seller" },
-  { code: "DAP", name: "Delivered At Place", displayName: "DAP (Delivered At Place – Named Place of Destination)", risk: 6, cost: 6, exportBy: "seller", importBy: "buyer", insuranceRecommended: "seller" },
-  { code: "DPU", name: "Delivered at Place Unloaded", displayName: "DPU (Delivered at Place Unloaded – Named Place of Destination)", risk: 7, cost: 7, exportBy: "seller", importBy: "buyer", insuranceRecommended: "seller" },
-  { code: "DDP", name: "Delivered Duty Paid", displayName: "DDP (Delivered Duty Paid – Named Place of Destination)", risk: 6, cost: 6, exportBy: "seller", importBy: "seller", insuranceRecommended: "seller" },
-  { code: "FAS", name: "Free Alongside Ship", displayName: "FAS (Free Alongside Ship – Named Port of Shipment)", risk: 2, cost: 2, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer", seaOnly: true },
-  { code: "FOB", name: "Free On Board", displayName: "FOB (Free On Board – Named Port of Shipment)", risk: 3, cost: 3, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer", seaOnly: true },
-  { code: "CFR", name: "Cost and Freight", displayName: "CFR (Cost and Freight – Named Port of Destination)", risk: 3, cost: 4, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer", seaOnly: true },
-  { code: "CIF", name: "Cost, Insurance and Freight", displayName: "CIF (Cost, Insurance and Freight – Named Port of Destination)", risk: 3, cost: 4, exportBy: "seller", importBy: "buyer", insuranceBy: "seller", insuranceFor: "buyer", insuranceRecommended: "seller", seaOnly: true },
+  { code: "EXW", name: "Ex Works", displayName: "EXW (Ex Works – Named Place)", risk: DP.SELLER_PLACE, cost: DP.SELLER_PLACE, exportBy: "buyer", importBy: "buyer", insuranceRecommended: "buyer" },
+  { code: "FCA", name: "Free Carrier", displayName: "FCA (Free Carrier – Named Place)", risk: DP.SELLER_PLACE, cost: DP.SELLER_PLACE, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer" },
+  { code: "CPT", name: "Carriage Paid To", displayName: "CPT (Carriage Paid To – Named Place of Destination)", risk: DP.FIRST_CARRIER, cost: DP.DESTINATION, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer" },
+  { code: "CIP", name: "Carriage and Insurance Paid To", displayName: "CIP (Carriage and Insurance Paid To – Named Place of Destination)", risk: DP.FIRST_CARRIER, cost: DP.DESTINATION, exportBy: "seller", importBy: "buyer", insuranceBy: "seller", insuranceFor: "buyer", insuranceRecommended: "seller" },
+  { code: "DAP", name: "Delivered At Place", displayName: "DAP (Delivered At Place – Named Place of Destination)", risk: DP.DESTINATION, cost: DP.DESTINATION, exportBy: "seller", importBy: "buyer", insuranceRecommended: "seller" },
+  { code: "DPU", name: "Delivered at Place Unloaded", displayName: "DPU (Delivered at Place Unloaded – Named Place of Destination)", risk: DP.UNLOADED, cost: DP.UNLOADED, exportBy: "seller", importBy: "buyer", insuranceRecommended: "seller" },
+  { code: "DDP", name: "Delivered Duty Paid", displayName: "DDP (Delivered Duty Paid – Named Place of Destination)", risk: DP.DESTINATION, cost: DP.DESTINATION, exportBy: "seller", importBy: "seller", insuranceRecommended: "seller" },
+  { code: "FAS", name: "Free Alongside Ship", displayName: "FAS (Free Alongside Ship – Named Port of Shipment)", risk: DP.DEPARTURE_PORT, cost: DP.DEPARTURE_PORT, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer", seaOnly: true },
+  { code: "FOB", name: "Free On Board", displayName: "FOB (Free On Board – Named Port of Shipment)", risk: DP.DEPARTURE_PORT, cost: DP.DEPARTURE_PORT, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer", seaOnly: true },
+  { code: "CFR", name: "Cost and Freight", displayName: "CFR (Cost and Freight – Named Port of Destination)", risk: DP.DEPARTURE_PORT, cost: DP.ARRIVAL_PORT, exportBy: "seller", importBy: "buyer", insuranceRecommended: "buyer", seaOnly: true },
+  { code: "CIF", name: "Cost, Insurance and Freight", displayName: "CIF (Cost, Insurance and Freight – Named Port of Destination)", risk: DP.DEPARTURE_PORT, cost: DP.ARRIVAL_PORT, exportBy: "seller", importBy: "buyer", insuranceBy: "seller", insuranceFor: "buyer", insuranceRecommended: "seller", seaOnly: true },
 ];
 
 const TERM_DETAILS = {
@@ -173,17 +176,33 @@ const TERM_DETAILS = {
     },
   },
   FCA: {
-    no: {
-      riskTransfer: "Risiko går over når varen er overlevert til transportør på avtalt sted.",
-      sellerObligation: "Selger leverer varen til transportør og eksportklarerer varen.",
-      buyerObligation: "Kjøper bærer risiko og kostnader fra levering til transportør.",
-      insuranceNote: "Varen bør normalt forsikres av kjøper etter levering.",
+    sellerPremises: {
+      no: {
+        riskTransfer: "Risiko går over når varen er lastet på kjøpers transportmiddel ved selgers lokaler.",
+        sellerObligation: "Selger leverer varen lastet på kjøpers transportmiddel og eksportklarerer varen.",
+        buyerObligation: "Kjøper bærer risiko og videre kostnader fra levering ved selgers lokaler.",
+        insuranceNote: "Varen bør normalt forsikres av kjøper etter levering.",
+      },
+      en: {
+        riskTransfer: "Risk transfers when the goods are loaded onto the buyer’s means of transport at the seller’s premises.",
+        sellerObligation: "Seller delivers the goods loaded onto the buyer’s means of transport and clears them for export.",
+        buyerObligation: "Buyer bears risk and onward costs from delivery at the seller’s premises.",
+        insuranceNote: "The goods should normally be insured by the buyer after delivery.",
+      },
     },
-    en: {
-      riskTransfer: "Risk transfers when the goods are handed over to the carrier at the named place.",
-      sellerObligation: "Seller delivers the goods to the carrier and clears them for export.",
-      buyerObligation: "Buyer bears risk and costs from delivery to the carrier.",
-      insuranceNote: "The goods should normally be insured by the buyer after delivery.",
+    otherPlace: {
+      no: {
+        riskTransfer: "Risiko går over når varen er stilt til transportørens disposisjon på avtalt sted, ikke losset fra transportmiddelet som fraktet varen dit.",
+        sellerObligation: "Selger leverer varen til transportør på avtalt sted og eksportklarerer varen.",
+        buyerObligation: "Kjøper bærer risiko og videre kostnader fra levering til transportør på avtalt sted.",
+        insuranceNote: "Varen bør normalt forsikres av kjøper etter levering.",
+      },
+      en: {
+        riskTransfer: "Risk transfers when the goods are placed at the carrier’s disposal at the named place, not unloaded from the means of transport that brought them there.",
+        sellerObligation: "Seller delivers the goods to the carrier at the named place and clears them for export.",
+        buyerObligation: "Buyer bears risk and onward costs from delivery to the carrier at the named place.",
+        insuranceNote: "The goods should normally be insured by the buyer after delivery.",
+      },
     },
   },
   CPT: {
@@ -323,7 +342,8 @@ const TRANSPORT_FILTERS = {
 };
 
 function pct(stage) {
-  return Math.max(0, Math.min(100, (stage / 7) * 100));
+  const stageCount = DP.UNLOADED + 1;
+  return Math.max(0, Math.min(100, ((stage + 0.5) / stageCount) * 100));
 }
 
 function partyName(party, t) {
@@ -455,7 +475,7 @@ function SvgIcon({ name, size = 44 }) {
   return <svg {...common}>{icons[name]}</svg>;
 }
 function TransportIcons({ term }) {
-  const icons = term.seaOnly ? ["ship"] : ["truck", "rail", "plane"];
+  const icons = term.seaOnly ? ["ship"] : ["truck", "rail", "plane", "ship"];
 
   return (
     <>
@@ -517,8 +537,17 @@ function InfoPanel({ term, t }) {
   );
 }
 
+function getTermDetails(term, lang) {
+  if (term.code === "FCA") {
+    const variant = term.fcaVariant === "otherPlace" ? "otherPlace" : "sellerPremises";
+    return TERM_DETAILS.FCA?.[variant]?.[lang];
+  }
+
+  return TERM_DETAILS[term.code]?.[lang];
+}
+
 function TermDetails({ term, lang, t }) {
-  const details = TERM_DETAILS[term.code]?.[lang];
+  const details = getTermDetails(term, lang);
 
   if (!details) return null;
 
@@ -589,7 +618,7 @@ function Glossary({ lang }) {
           ["Kostnadsovergang", "Punktet hvor hovedansvaret for kostnader går fra selger til kjøper."],
           ["Forsikring", "Viser hvem som skal eller normalt bør forsikre varen."],
           ["Bør forsikres av", "Parten som normalt bør sørge for vareforsikring basert på hvem som bærer risikoen."],
-          ["Klarering", "Toll- og dokumentansvar knyttet til eksport og import."],
+          ["Tollklarering", "Toll- og dokumentansvar knyttet til eksport og import."],
           ["Eksportklarering", "Ansvar for å klargjøre varen for eksport ut av avsenderlandet."],
           ["Importklarering", "Ansvar for toll, avgifter og dokumenter ved innførsel i mottakerlandet."],
           ["Selgers risiko", "Skaden rammer før risikoen har gått over til kjøper."],
@@ -604,7 +633,7 @@ function Glossary({ lang }) {
           ["Cost transfer", "The point where the main cost responsibility transfers from seller to buyer."],
           ["Insurance", "Shows who must or normally should insure the goods."],
           ["Should be insured by", "The party who should normally arrange cargo insurance based on who carries the risk."],
-          ["Clearance", "Customs and documentation responsibility related to export and import."],
+          ["Customs clearance", "Customs and documentation responsibility related to export and import."],
           ["Export clearance", "Responsibility for preparing the goods for export from the country of dispatch."],
           ["Import clearance", "Responsibility for customs, duties and documents when importing the goods."],
           ["Seller’s risk", "Damage occurs before risk has transferred to the buyer."],
@@ -646,8 +675,9 @@ export default function App() {
     selectedTerm.code === "FCA"
       ? {
           ...selectedTerm,
-          risk: fcaVariant === "sellerPremises" ? DP.FIRST_CARRIER : DP.DEPARTURE_PORT,
-          cost: fcaVariant === "sellerPremises" ? DP.FIRST_CARRIER : DP.DEPARTURE_PORT,
+          risk: fcaVariant === "sellerPremises" ? DP.SELLER_PLACE : DP.DEPARTURE_PORT,
+          cost: fcaVariant === "sellerPremises" ? DP.SELLER_PLACE : DP.DEPARTURE_PORT,
+          fcaVariant,
         }
       : selectedTerm;
 
