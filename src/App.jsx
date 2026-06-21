@@ -12,7 +12,7 @@
 import { useMemo, useState } from "react";
 
 const BRAND = {
-  seller: "#1d4ed8",
+  seller: "#1e40af",
   buyer: "#16a34a",
   risk: "#ea580c",
   cost: "#475569",
@@ -455,6 +455,34 @@ function SvgIcon({ name, size = 44 }) {
         <path d="M8 12.5l2.6 2.6L16.5 9" />
       </>
     ),
+    shield: (
+      <>
+        <path d="M12 3 5.5 5.6v5.7c0 4.1 2.7 7.8 6.5 9.1 3.8-1.3 6.5-5 6.5-9.1V5.6z" />
+        <path d="M8.8 12.2 11 14.4l4.4-5" />
+      </>
+    ),
+    document: (
+      <>
+        <path d="M7 3h7l4 4v14H7z" />
+        <path d="M14 3v5h5" />
+        <path d="M9.5 12h5" />
+        <path d="M9.5 15h5" />
+        <path d="M9.5 18h3" />
+      </>
+    ),
+    warning: (
+      <>
+        <path d="M12 3.5 2.8 19.5h18.4z" />
+        <path d="M12 9v4.2" />
+        <path d="M12 17h.01" />
+      </>
+    ),
+    person: (
+      <>
+        <circle cx="12" cy="7" r="3.2" />
+        <path d="M5.5 21c.8-4.2 3.1-6.2 6.5-6.2s5.7 2 6.5 6.2" />
+      </>
+    ),
     rail: (
       <>
         <path d="M7 3h10a2 2 0 0 1 2 2v9a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V5a2 2 0 0 1 2-2z" />
@@ -486,22 +514,34 @@ function TransportIcons({ term }) {
   );
 }
 
-function StageTimeline({ stages, activeStage }) {
+function StageTimeline({ stages, riskStage, costStage }) {
   return (
     <div className="stage-wrapper">
       <div className="stage-track">
         <div className="stage-main-line" aria-hidden="true" />
 
         <div className="stage-grid">
-          {stages.map((stage, index) => (
-            <div key={stage.key} className={`stage-card ${index === activeStage ? "active" : ""}`}>
-              <div className="stage-number">{index + 1}</div>
-              <div className="stage-icon">
-                <SvgIcon name={stage.icon} />
+          {stages.map((stage, index) => {
+            const isRisk = index === riskStage;
+            const isCost = index === costStage;
+            const transferClass = isRisk && isCost
+              ? "transfer-both"
+              : isRisk
+                ? "transfer-risk"
+                : isCost
+                  ? "transfer-cost"
+                  : "";
+
+            return (
+              <div key={stage.key} className={`stage-card ${transferClass}`}>
+                <div className="stage-number">{index + 1}</div>
+                <div className="stage-icon">
+                  <SvgIcon name={stage.icon} />
+                </div>
+                <div className="stage-label">{stage.label}</div>
               </div>
-              <div className="stage-label">{stage.label}</div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
@@ -576,6 +616,93 @@ function TermDetails({ term, lang, t }) {
   );
 }
 
+
+function ResponsibilityCards({ term, lang, t }) {
+  const details = getTermDetails(term, lang);
+  const hasMandatoryInsurance = term.insuranceBy && term.insuranceFor;
+
+  if (!details) return null;
+
+  return (
+    <section className="responsibility-section" aria-label="Responsibility details">
+      <div className="responsibility-top-grid">
+        <article className="responsibility-card responsibility-card-green">
+          <div className="responsibility-card-header">
+            <span className="responsibility-icon"><SvgIcon name="shield" size={24} /></span>
+            <h3>{t.insurance}</h3>
+          </div>
+          <div className="responsibility-card-body">
+            {hasMandatoryInsurance ? (
+              <>
+                <p>{t.insuranceBy}: <strong>{partyName(term.insuranceBy, t)}</strong></p>
+                <p>{t.insuranceFor}: <strong>{partyName(term.insuranceFor, t)}</strong></p>
+              </>
+            ) : (
+              <>
+                <p>{t.shouldBeInsuredBy}: <strong>{partyName(term.insuranceRecommended, t)}</strong></p>
+                <p>{t.noMandatoryInsurance}</p>
+              </>
+            )}
+          </div>
+        </article>
+
+        <article className="responsibility-card responsibility-card-gray">
+          <div className="responsibility-card-header">
+            <span className="responsibility-icon"><SvgIcon name="document" size={24} /></span>
+            <h3>{t.customs}</h3>
+          </div>
+          <div className="responsibility-card-body">
+            <p>{t.exportClearance}: <strong>{partyName(term.exportBy, t)}</strong></p>
+            <p>{t.importClearance}: <strong>{partyName(term.importBy, t)}</strong></p>
+          </div>
+        </article>
+
+        <article className="responsibility-card responsibility-card-orange">
+          <div className="responsibility-card-header">
+            <span className="responsibility-icon"><SvgIcon name="warning" size={24} /></span>
+            <h3>{t.riskTransfer}</h3>
+          </div>
+          <div className="responsibility-card-body">
+            <p>{details.riskTransfer}</p>
+          </div>
+        </article>
+
+        <article className="responsibility-card responsibility-card-green">
+          <div className="responsibility-card-header">
+            <span className="responsibility-icon"><SvgIcon name="shield" size={24} /></span>
+            <h3>{t.insuranceNote}</h3>
+          </div>
+          <div className="responsibility-card-body">
+            <p>{details.insuranceNote}</p>
+          </div>
+        </article>
+      </div>
+
+      <div className="responsibility-bottom-grid">
+        <article className="responsibility-card responsibility-card-large responsibility-card-seller">
+          <div className="responsibility-card-header">
+            <span className="responsibility-icon"><SvgIcon name="person" size={24} /></span>
+            <h3>{t.sellerObligation}</h3>
+          </div>
+          <div className="responsibility-card-body">
+            <p>{details.sellerObligation}</p>
+          </div>
+        </article>
+
+        <article className="responsibility-card responsibility-card-large responsibility-card-buyer">
+          <div className="responsibility-card-header">
+            <span className="responsibility-icon"><SvgIcon name="person" size={24} /></span>
+            <h3>{t.buyerObligation}</h3>
+          </div>
+          <div className="responsibility-card-body">
+            <p>{details.buyerObligation}</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  );
+}
+
 function Visual({ label, term, stages, t, lang }) {
   return (
     <section className="visual-card">
@@ -593,7 +720,7 @@ function Visual({ label, term, stages, t, lang }) {
 
       <Bar title={t.cost} split={pct(term.cost)} markerColor={BRAND.cost} />
 
-      <StageTimeline stages={stages} activeStage={term.risk} />
+      <StageTimeline stages={stages} riskStage={term.risk} costStage={term.cost} />
 
       <Bar title="" split={pct(term.risk)} markerColor={BRAND.risk} />
 
@@ -601,9 +728,7 @@ function Visual({ label, term, stages, t, lang }) {
         <strong>{t.risk}</strong>
       </div>
 
-      <InfoPanel term={term} t={t} />
-
-      <TermDetails term={term} lang={lang} t={t} />
+      <ResponsibilityCards term={term} lang={lang} t={t} />
     </section>
   );
 }
@@ -779,8 +904,8 @@ export default function App() {
           <Visual label={resolvedSelectedTerm.displayName} term={resolvedSelectedTerm} stages={stages} t={t} lang={lang} />
         ) : (
           <div className="compare-grid">
-            <Visual label={`A: ${resolvedSelectedTerm.displayName}`} term={resolvedSelectedTerm} stages={stages} t={t} lang={lang} />
-            <Visual label={`B: ${compareTerm.displayName}`} term={compareTerm} stages={stages} t={t} lang={lang} />
+            <Visual label={`A: ${resolvedSelectedTerm.code}`} term={resolvedSelectedTerm} stages={stages} t={t} lang={lang} />
+            <Visual label={`B: ${compareTerm.code}`} term={compareTerm} stages={stages} t={t} lang={lang} />
           </div>
         )}
 
