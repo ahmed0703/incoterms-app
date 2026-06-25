@@ -815,10 +815,22 @@ export default function App() {
     setCompareCode(mode === "sea" ? "CIF" : "CIP");
   }
 
+  function resetApp() {
+    setLang("no");
+    setTransportMode("all");
+    setSelectedCode("EXW");
+    setCompare(false);
+    setCompareCode("CIF");
+    setDamageAt(50);
+    setFcaVariant("sellerPremises");
+    setShowGlossary(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   return (
     <main className="app-shell">
       <header className="app-header">
-        <button type="button" className="header-logo logo-refresh-button" onClick={() => window.location.reload()} aria-label="Oppdater siden">
+        <button type="button" className="header-logo logo-refresh-button" onClick={resetApp} aria-label={lang === "no" ? "Tilbakestill siden" : "Reset page"}>
           <img src="/berkley-logo.png" alt="Berkley Nordic" className="berkley-logo" />
         </button>
 
